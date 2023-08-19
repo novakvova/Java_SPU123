@@ -1,10 +1,10 @@
 package org.example.dto.category;
 
+
 import lombok.Data;
 
 @Data
-public class CategoryItemDTO {
-    private int id;
+public class CategoryCreateDTO {
     private String name;
     private String description;
 }
