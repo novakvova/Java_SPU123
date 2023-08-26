@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import jakarta.validation.*;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.category.CategoryCreateDTO;
 import org.example.dto.category.CategoryItemDTO;
@@ -28,7 +29,7 @@ public class CategoryController {
     }
 
     @PostMapping("/api/category")
-    public CategoryEntity create(@RequestBody CategoryCreateDTO dto) {
+    public CategoryEntity create(@Valid @RequestBody CategoryCreateDTO dto) {
         CategoryEntity entity = new CategoryEntity();
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
