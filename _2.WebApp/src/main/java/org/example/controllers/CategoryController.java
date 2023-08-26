@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.category.CategoryCreateDTO;
 import org.example.dto.category.CategoryItemDTO;
 import org.example.entities.CategoryEntity;
+import org.example.mappers.CategoryMapper;
 import org.example.repositories.CategoryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
     @GetMapping("/")
     public ResponseEntity<List<CategoryItemDTO>> index() {
-        var result = new ArrayList<CategoryItemDTO>();
-        var item = new CategoryItemDTO();
-        item.setId(1);
-        item.setName("Сало");;
-        item.setDescription("Для козаків");
-        result.add(item);
+        var result = categoryMapper.listCategoriesToListCategoryItemDTO(categoryRepository.findAll());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
