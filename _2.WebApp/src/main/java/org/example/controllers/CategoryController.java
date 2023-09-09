@@ -8,6 +8,7 @@ import org.example.dto.category.CategoryUpdateDTO;
 import org.example.entities.CategoryEntity;
 import org.example.mappers.CategoryMapper;
 import org.example.repositories.CategoryRepository;
+import org.example.storage.FileSaveFormat;
 import org.example.storage.StorageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,7 +32,8 @@ public class CategoryController {
 
     @PostMapping(value="/api/category", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CategoryEntity create(@Valid @ModelAttribute CategoryCreateDTO dto) {
-        var fileName = storageService.saveMultipartFile(dto.getImage());
+        //var fileName = storageService.saveMultipartFile(dto.getImage());
+        var fileName = storageService.saveByFormat(dto.getImage(), FileSaveFormat.WEBP);
         CategoryEntity entity = categoryMapper.createCategoryToCategory(dto);
         entity.setImage(fileName);
         categoryRepository.save(entity);
@@ -58,7 +60,8 @@ public class CategoryController {
         if (category.getImage() != null && !category.getImage().isEmpty()) {
             storageService.removeFile(category.getImage());
         }
-        var fileName = storageService.saveMultipartFile(dto.getImage());
+//        var fileName = storageService.saveMultipartFile(dto.getImage());
+        var fileName = storageService.saveByFormat(dto.getImage(), FileSaveFormat.WEBP);
         category=categoryMapper.updateCategoryToCategory(dto);
         category.setId(catOptional.get().getId());
         //category.setName(dto.getName());

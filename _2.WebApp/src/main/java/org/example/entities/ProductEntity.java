@@ -30,5 +30,5 @@ public class ProductEntity {
     private CategoryEntity category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductImageEntity> productImages;
+    private List<ProductImageEntity> images;
 }
