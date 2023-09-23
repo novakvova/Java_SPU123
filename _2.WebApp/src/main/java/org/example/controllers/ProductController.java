@@ -37,7 +37,7 @@ public class ProductController {
         productRepository.save(p);
         for (MultipartFile image : dto.getImages()) {
             var imageSave = storageService.saveByFormat(image, FileSaveFormat.WEBP);
-            var pi = new ProductImageEntity()
+            var pi = ProductImageEntity
                     .builder()
                     .image(imageSave)
                     .product(p)
@@ -66,7 +66,7 @@ public class ProductController {
 
             for (MultipartFile image : dto.getImages()) {
                 String imageSave = storageService.saveByFormat(image, FileSaveFormat.WEBP);
-                var pi = new ProductImageEntity()
+                var pi = ProductImageEntity
                         .builder()
                         .image(imageSave)
                         .product(product)
